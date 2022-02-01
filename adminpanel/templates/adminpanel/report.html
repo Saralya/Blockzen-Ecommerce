@@ -1,0 +1,48 @@
+{% extends 'adminpanel/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"><strong>Reports: </strong>{{ reporttitle }}</a></li>
+          <!-- <li class="breadcrumb-item active" aria-current="page">{{ reporttitle }}</li> -->
+        </ol>
+    </nav>
+            
+    
+    <h5 class="btn btn-outline-primary" style="border-radius: 50px;">
+        <a href="{% url 'exportdata' %}">Export to CSV</a> 
+    </h5>
+    
+    
+			
+	<div class="card card-body">
+        {% if reporttitle == 'Product Stock' %}
+            <table class="table table-striped">
+                <tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+                    <!-- <th></th> -->
+                    <th scope="col">Product name</th>
+                    <th scope="col">Product Category</th>
+                    <th scope="col">Current Stock</th>
+                </tr>
+                {% if reportdata %}
+                    {% for item in reportdata %}
+                        <tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+                            <!-- <td scope="row"><img class="row-image" style="height: 50px; width: 60px;" src="{{ item.imageURL }}"></td> -->
+                            <td scope="row">{{ item.name }}</td>
+                            <td scope="row">{{ item.subcategory.categoryname }}</td>
+                            <td scope="row">{{ item.get_stock }} </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+        {% endif %}
+	</div>
+		
+
+</div>
+
+{% endblock %}

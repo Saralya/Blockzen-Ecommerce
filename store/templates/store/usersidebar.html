@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="col-lg-3">
+    <aside class="user-info-wrapper">
+        <div class="user-cover" style="background-image: url('{% static 'images/user-cover-img.jpg' %}')">
+            
+            <div class="info-label" data-toggle="tooltip" title="You currently have 0 Reward Points to spend">
+                <i class="icon-award"></i>0 points
+            </div>
+            
+        </div>
+        <div class="user-info" style="background-image: url('{% static 'images/user-cover-img.jpg' %}')">
+            
+            <div style="background-image: url('{% static 'images/user-cover-img.jpg' %}')">
+                
+                <div class="user-avatar"><a class="edit-avatar" href="#"></a>
+                    <img style="height: 80px; border-radius: 50%;" src="{% static 'images/logo/logo.png' %}" alt="User Image">
+                </div>
+                <br>
+
+            </div>                
+        
+        </div>
+    </aside>
+    <nav class="list-group">
+
+        <a id="lblprofile" class="list-group-item" href="#" >
+            <div class="user-data">
+                <h4 class="h5">{{user|capfirst}}</h4><span>Joined: {{user.date_joined|date:"F d, Y"}}</span>
+            </div>
+        </a>
+
+        <a id="lblprofile" class="list-group-item" href="{% url 'userprofile' %}" >
+            <i class="icon-user"></i>Profile
+        </a>
+
+        <a class="list-group-item with-badge" href="{% url 'userpanel' %}">
+            <i class="icon-shopping-bag"></i>Change Password<span class="badge badge-default badge-pill"></span>
+        </a>
+
+        <a class="list-group-item with-badge" href="{% url 'userpanel' %}">
+            <i class="icon-shopping-bag"></i>My Orders<span class="badge badge-default badge-pill"></span>
+        </a>
+        
+    </nav>
+</div>

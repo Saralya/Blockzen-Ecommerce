@@ -1,0 +1,93 @@
+{% extends 'store/base2.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Page Title-->
+<div class="page-title">
+    <div class="container">
+      <div class="column">
+        <h1>User Profile</h1>
+      </div>
+      <div class="column">
+        <ul class="breadcrumbs">
+          <li><a href="{% url 'home' %}">Home</a>
+          </li>
+                    
+          <li class="separator">&nbsp;</li>
+          <li>User Profile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Page Content-->
+  <div class="container padding-bottom-3x mb-2">
+    <div class="row">
+      <div class="col-lg-4">
+        <aside class="user-info-wrapper">
+          <div class="user-cover" style="background-image: url('{% static 'img/account/user-cover-img.jpg' %}');">
+            <!-- <div class="info-label" data-toggle="tooltip" title="You currently have 290 Reward Points to spend"><i class="icon-medal"></i>290 points</div> -->
+          </div>
+          <div class="user-info">
+            <div class="user-avatar"><a class="edit-avatar" href="#"></a><img src="{% static 'img/account/user_profile.png' %}" alt="User"></div>
+            <div class="user-data">
+              <h4>{{ request.user|upper }}</h4><span>Joined {{user.date_joined|date:"F d, Y"}}</span>
+            </div>
+          </div>
+        </aside>
+        <nav class="list-group">
+            <a class="list-group-item" href="{% url 'userprofile' %}"><i class="icon-head"></i>Profile</a>
+            <a class="list-group-item with-badge" href="{% url 'userpanel' %}"><i class="icon-bag"></i>Orders<span class="badge badge-primary badge-pill">{{ orderCount }}</span></a>
+            <a class="list-group-item" href="#"><i class="icon-map"></i>Addresses</a>
+            <a class="list-group-item" href="{% url 'changepassword' %}"><i class="icon-lock"></i>Change Password</a>
+            <!-- 
+            <a class="list-group-item with-badge" href="account-wishlist.html"><i class="icon-heart"></i>Wishlist<span class="badge badge-primary badge-pill">3</span></a>
+            <a class="list-group-item with-badge" href="account-tickets.html"><i class="icon-tag"></i>My Tickets<span class="badge badge-primary badge-pill">4</span></a></nav>
+            -->
+      </div>
+      <div class="col-lg-8">
+        <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+        <h5 class="btn btn-outline-primary" style="width: 100%;">
+            <strong>Order List</strong> 
+        </h5>
+        
+        <div class="card card-body">
+            
+            <table class="table table-sm">
+              <tr>
+                <th>Order No</th>
+                <th>Order Date</th>
+                <th>Total Quantity</th>
+                <th style="text-align: right;">Delivery Charge</th>
+                <th style="text-align: right;">Total Amount</th>
+                <th>Status</th>
+                <th></th>
+                
+            </tr>
+            {% if orders %}
+                {% for items in orders %}
+                    <tr>
+                        <td>{{ items.id }}</td>
+                        <td>{{ items.date_ordered|date:"M d, Y" }}</td>
+                        <td>{{ items.get_cart_items }}</td>
+                        <td style="text-align: right;">{{ items.delivery_charge }}</td>
+                        <td style="text-align: right;">{{ items.total }}</td>
+                        <td>{{ items.order_status }}</td>
+                        <td>
+                            <a href="{% url 'orderdetails' items.id %}">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}

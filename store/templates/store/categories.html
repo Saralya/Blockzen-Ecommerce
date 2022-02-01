@@ -1,0 +1,72 @@
+{% extends 'store/base2.html' %}
+
+{% load static %}
+
+<!--###################################################################################################################-->
+<!-- CONTENT START -->
+<!--###################################################################################################################-->
+{% block content %}
+
+
+<!--#################################################################################-->
+
+<div class="page-title">
+  <div class="container">
+    <div class="column">
+      <h1>Shop Categories</h1>
+    </div>
+    <div class="column">
+      <ul class="breadcrumbs">
+        <li><a href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="separator">&nbsp;</li>
+        <li>Shop Categories</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    
+    
+
+<div class="container padding-bottom-2x mb-2">
+  <div class="row">
+    <!-- Sidebar          -->
+    <div class="col-lg-3">
+      
+{% include 'store/childsidebar.html' %}
+  
+    </div>
+    <!-- Categories-->
+    <div class="col-lg-9">
+      
+      <div class="row">
+        {% if categories %}
+          {% for cat in categories %}
+            <div class="col-sm-6">
+              <div class="card mb-30"><a class="card-img-tiles" href="{% url 'subcategories' cat.id %}">
+                <div class="inner">
+                  <div class="main-img"><img src="{{ cat.CategoryImageURL }}" alt="Category"></div>                              
+                </div></a>
+                <div class="card-body text-center">
+                  <h4 class="card-title">{{ cat.categoryname }}</h4>
+                    <!-- <p class="text-muted">Starting from $49.99</p> -->
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'subcategories' cat.id %}">View Products</a> 
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}  
+      </div>
+    
+</div>
+  </div>
+</div>
+  
+
+
+<br>
+<br>
+<br>
+
+{% endblock %}

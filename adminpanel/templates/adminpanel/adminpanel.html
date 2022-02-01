@@ -1,0 +1,218 @@
+{% extends 'store/base2.html' %}
+{% load static %}
+
+
+
+
+<!-- ################################################################################-->
+
+{% block content %}
+
+
+<!--#################################################################################-->
+<div class="page-title">
+  <div class="container">
+    <div class="column">
+      <h1>Admin Panel</h1>
+    </div>
+    <div class="column">
+      <ul class="breadcrumbs">
+        <li><a href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="separator">&nbsp;</li>
+        <li>Admin Panel</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+
+        <!-- ###################################################################################### -->   
+        <div class="row">
+
+            <div class="col-md-5">
+                <h5>Area</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createarea' %}">Create New Area</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Area Name</th>
+                            <th>Region Name</th>
+                            <th></th>
+                        </tr>
+                        {% if areas %}
+                            {% for area in areas %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ area.areaname }}</td>
+                                    <td style="vertical-align: middle;">{{ area.regioncode }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updatearea' area.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <h5>Region</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createregion' %}">Create New Region</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Region Code</th>
+                            <th>Region Name</th>
+                            <th>Country</th>
+                            <th></th>
+                        </tr>
+                        
+                        {% if regions %}
+                            {% for i in regions %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ i.regioncode }}</td>
+                                    <td style="vertical-align: middle;">{{ i.regionname }}</td>
+                                    <td style="vertical-align: middle;">{{ i.countrycode }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updateregion' i.id  %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                                        
+                    </table>
+                </div>
+            </div>
+        
+            
+        
+        </div>
+
+        <!-- ###################################################################################### -->
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-5">
+                <h5>Category</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createcategory' %}">Create New Category</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        {% if categories %}
+                            {% for cat in categories %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ cat.categoryname }}</td>
+                                    <td style="vertical-align: middle;">{{ cat.categorydesc }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updatecategory' cat.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        
+            <div class="col-md-7">
+                <h5>Subcategory</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createsubcategory' %}">Create New Subcategory</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Subcategory Name</th>
+                            <th>Parent Subcategory</th>
+                            <th>Category</th>
+                            <th>Update</th>
+                        </tr>
+                        {% if subcategories %}
+                            {% for subcat in subcategories %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ subcat.subcategoryname }}</td>
+                                    <td style="vertical-align: middle;">{{ subcat.parentsubcategory }}</td>
+                                    <td style="vertical-align: middle;">{{ subcat.categoryname }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updatesubcategory' subcat.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}                        
+                    </table>
+                </div>
+            </div>
+        
+        </div>
+
+        <!-- ###################################################################################### -->
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-5">
+                <h5>Supplier</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createsupplier' %}">Create New Supplier</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        {% if suppliers %}
+                            {% for supplier in suppliers %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ supplier.suppliername }}</td>
+                                    <td style="vertical-align: middle;">{{ supplier.suppliercountry }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updatesupplier' supplier.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        
+            <div class="col-md-7">
+                <h5>Products</h5>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createproduct' %}">Create New Products</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Category</th>
+                            <th>Supplier</th>
+                            <th>Update</th>
+                        </tr>
+                        {% if products %}
+                            {% for product in products %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ product.name }}</td>
+                                    <td style="vertical-align: middle;">{{ product.subcategory }}</td>
+                                    <td style="vertical-align: middle;">{{ product.price }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updateproduct' product.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}                        
+                    </table>
+                </div>
+            </div>
+        
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row">
+            {% include 'adminpanel/adminoptions.html' %}
+        </div>
+    
+    </div>
+
+    
+</div>
+    
+    <br>
+    <br>
+    
+{% endblock %}

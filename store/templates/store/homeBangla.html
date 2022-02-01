@@ -1,0 +1,223 @@
+{% extends 'store/baseBangla.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <!-- ======= Hero Section ======= -->
+    
+    <br>
+    <section id="hero" class="d-flex align-items-center">
+      <br>
+
+      <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;height:320px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{% static 'images/spin.svg' %}" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1000px;height:320px;overflow:hidden;">
+            
+              {% if bannerimgs %}
+                {% for imgs in bannerimgs %}
+                  <div>  
+                      <img data-u="image" src="{{ imgs.BannerimageURL }}" class="d-block w-100" alt="Banner Image" />
+                  </div>  
+                {% endfor %}
+              {% endif %}
+            
+            
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:16px;right:16px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i" style="width:12px;height:12px;">
+                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                    <path class="b" d="M11400,13800H4600c-1320,0-2400-1080-2400-2400V4600c0-1320,1080-2400,2400-2400h6800 c1320,0,2400,1080,2400,2400v6800C13800,12720,12720,13800,11400,13800z"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora093" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <circle class="c" cx="8000" cy="8000" r="5920"></circle>
+                <polyline class="a" points="7777.8,6080 5857.8,8000 7777.8,9920 "></polyline>
+                <line class="a" x1="10142.2" y1="8000" x2="5857.8" y2="8000"></line>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora093" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <circle class="c" cx="8000" cy="8000" r="5920"></circle>
+                <polyline class="a" points="8222.2,6080 10142.2,8000 8222.2,9920 "></polyline>
+                <line class="a" x1="5857.8" y1="8000" x2="10142.2" y2="8000"></line>
+            </svg>
+        </div>
+    </div>
+    
+      
+        </section>
+
+
+        <!-- ======= All Category Section ======= -->
+        <section class="container padding-top-3x">
+          <h3 class="text-center mb-30">ট‍প ক্যাটাগোরি</h3>
+          <div class="row">
+            {% if categories %}
+              {% for cat in categories %}
+                <div class="col-md-4 col-sm-6">
+                  <div class="card mb-30"><a class="card-img-tiles" href="{% url 'subcategories' cat.id %}">
+                      <div class="inner">
+                        <div class="main-img"><img src="{{ cat.CategoryImageURL }}" alt="Category"></div>
+                        <!--
+                        <div class="thumblist"><img src="{% static 'img/shop/categories/02.jpg' %}" alt="Category"><img src="{% static 'img/shop/categories/03.jpg' %}" alt="Category"></div>
+                        -->
+                      </div></a>
+                      <div class="card-body text-center">
+                        <h4 class="card-title">{{ cat.categoryname }}</h4>
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'subcategories' cat.id %}">পণ্য দেখুন</a>
+                      </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="text-center"><a class="btn btn-outline-secondary margin-top-none" href="{% url 'shop' %}">সব ক্যাটাগোরি দেখুন</a></div>
+        </section>
+    <!-- End All Categories Section -->
+
+    <!-- Special Offers Products Carousel-->
+
+  <section id="specialdiscount" class="container padding-top-3x padding-bottom-3x">
+    <h3 class="text-center mb-30">বিশেষ অফার</h3>
+    <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+      <!-- Product-->
+      
+
+      {% if prodoffers %}
+        {% for prod in prodoffers %}
+          <div class="grid-item">
+            <div class="product-card">
+              <div class="product-badge text-danger">{{ prod.discount_prcnt|floatformat:0 }}% Off</div>
+              
+              <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.product.imageURL }}" alt="Product"></a>
+              <h3 class="product-title"><a href="{% url 'shop' %}">{{ prod.product.name }}</a></h3>
+              <h4 class="product-price">                
+                  <del>Tk. {{ prod.product.price }}</del> Tk. {{ prod.product.get_discounted_price|floatformat:2 }}
+              </h4>
+              <div class="product-buttons">
+                <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">কার্টে যোগ করুন</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}  
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- New Arrivals Carousel-->
+
+  <section id="newarrivals" class="container padding-top-3x padding-bottom-3x">
+    <h3 class="text-center mb-30">নতুন আগমন</h3>
+    <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+      <!-- Product-->
+      {% if topProds %}
+        {% for prod in topProds %}
+          <div class="grid-item">
+            <div class="product-card">
+              {% for disc in prod.productoffers_set.all %}
+                {% if disc and disc.get_discount != disc.product.price %}
+                  <div class="product-badge text-danger">{{ disc.discount_prcnt|floatformat:0 }}% Off</div>
+                {% else %}
+                  <div class="product-badge text-danger"></div>
+                {% endif %}
+              {% endfor %}
+              <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.imageURL }}" alt="Product"></a>
+              <!-- <h3 class="product-title"><a href="{% url 'shop' %}">{{ prod.name }}</a></h3> -->
+              <h3 class="product-title"><a href="{% url 'shop' %}">{{ prod.bengali_name }}</a></h3>
+              <h4 class="product-price">                
+                {% if prod.get_discounted_price == 0 %}
+                  Tk. {{ prod.price }}
+                {% elif prod.price == prod.get_discounted_price %}
+                  Tk. {{ prod.price }}
+                {% else %}
+                  <del>Tk. {{ prod.price }}</del> Tk. {{ prod.get_discounted_price|floatformat:2 }}
+                {% endif %}                
+              </h4>
+              <div class="product-buttons">
+                <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">কার্টে যোগ করুন</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}  
+      {% endif %}
+    </div>
+  </section>
+
+
+    <!-- Best Sellers Carousel-->
+
+    <section id="bestsellers" class="container padding-top-3x padding-bottom-3x">
+      <h3 class="text-center mb-30">সর্বোচ্চ বিক্রিত</h3>
+      <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+        <!-- Product-->
+        {% if topProds %}
+          {% for prod in topProds %}
+            <div class="grid-item">
+              <div class="product-card">
+                {% for disc in prod.productoffers_set.all %}
+                  {% if disc and disc.get_discount != disc.product.price %}
+                    <div class="product-badge text-danger">{{ disc.discount_prcnt|floatformat:0 }}% Off</div>
+                  {% else %}
+                    <div class="product-badge text-danger"></div>
+                  {% endif %}
+                {% endfor %}
+                <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.imageURL }}" alt="Product"></a>
+                <h3 class="product-title"><a href="{% url 'shop' %}">{{ prod.bengali_name }}</a></h3>
+                <h4 class="product-price">                
+                  {% if prod.get_discounted_price == 0 %}
+                    Tk. {{ prod.price }}
+                  {% elif prod.price == prod.get_discounted_price %}
+                    Tk. {{ prod.price }}
+                  {% else %}
+                    <del>Tk. {{ prod.price }}</del> Tk. {{ prod.get_discounted_price|floatformat:2 }}
+                  {% endif %}                
+                </h4>
+                <div class="product-buttons">
+                  <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                  <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">কার্টে যোগ করুন</button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}  
+        {% endif %}
+      </div>
+    </section>
+
+    
+     
+  <section class="container padding-top-3x padding-bottom-2x" >
+    <div class="row">
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/05.png' %}" alt="Shipping">
+        <h6 class="mb-2">দ্রুত বিতরণ</h6>
+        <p class="text-sm text-muted mb-0">ঢাকার ভিতরে দ্রুত বিতরণ</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/02.png' %}" alt="Money Back">
+        <h6 class="mb-2">টাকা ফেরত গ্যারান্টি</h6>
+        <p class="text-sm text-muted mb-0">আমরা ৭ দিনের মধ্যে টাকা ফেরত দিই</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/03.png' %}" alt="Support">
+        <h6 class="mb-2">২৪/৭ গ্রাহক সেবা</h6>
+        <p class="text-sm text-muted mb-0">বন্ধুত্বপূর্ণ ২৪/৭ গ্রাহক সেবা</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/04.png' %}" alt="Payment">
+        <h6 class="mb-2">সিকিউর অনলাইন পেমেন্ট</h6>
+        <p class="text-sm text-muted mb-0">সিকিউর অনলাইন পেমেন্ট</p>
+      </div>
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

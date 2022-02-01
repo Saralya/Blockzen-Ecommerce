@@ -1,0 +1,302 @@
+{% extends 'store/base2.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <!-- ======= Hero Section ======= -->
+    
+    <br>
+    <section id="hero" class="d-flex align-items-center">
+      <br>
+
+      <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;height:320px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{% static 'images/spin.svg' %}" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1000px;height:320px;overflow:hidden;">
+            
+              {% if bannerimgs %}
+                {% for imgs in bannerimgs %}
+                  <div>  
+                      <img data-u="image" src="{{ imgs.BannerimageURL }}" class="d-block w-100" alt="Banner Image" />
+                  </div>  
+                {% endfor %}
+              {% endif %}
+            
+            
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:16px;right:16px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i" style="width:12px;height:12px;">
+                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                    <path class="b" d="M11400,13800H4600c-1320,0-2400-1080-2400-2400V4600c0-1320,1080-2400,2400-2400h6800 c1320,0,2400,1080,2400,2400v6800C13800,12720,12720,13800,11400,13800z"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora093" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <circle class="c" cx="8000" cy="8000" r="5920"></circle>
+                <polyline class="a" points="7777.8,6080 5857.8,8000 7777.8,9920 "></polyline>
+                <line class="a" x1="10142.2" y1="8000" x2="5857.8" y2="8000"></line>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora093" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <circle class="c" cx="8000" cy="8000" r="5920"></circle>
+                <polyline class="a" points="8222.2,6080 10142.2,8000 8222.2,9920 "></polyline>
+                <line class="a" x1="5857.8" y1="8000" x2="10142.2" y2="8000"></line>
+            </svg>
+        </div>
+    </div>
+    
+      
+        </section>
+
+
+        <!-- ======= All Category Section ======= -->
+        <section class="container padding-top-3x">
+          <h3 class="text-center mb-30">Top Categories</h3>
+          <div class="row">
+            {% if categories %}
+              {% for cat in categories %}
+                <div class="col-md-4 col-sm-6">
+                  <div class="card mb-30"><a class="card-img-tiles" href="{% url 'subcategories' cat.id %}">
+                      <div class="inner">
+                        <div class="main-img"><img src="{{ cat.CategoryImageURL }}" alt="Category"></div>
+                        <!--
+                        <div class="thumblist"><img src="{% static 'img/shop/categories/02.jpg' %}" alt="Category"><img src="{% static 'img/shop/categories/03.jpg' %}" alt="Category"></div>
+                        -->
+                      </div></a>
+                      <div class="card-body text-center">
+                        <h4 class="card-title">{{ cat.categoryname }}</h4>
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'subcategories' cat.id %}">View Products</a>
+                      </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="text-center"><a class="btn btn-outline-secondary margin-top-none" href="{% url 'shop' %}">View All Categories</a></div>
+        </section>
+    <!-- End All Categories Section -->
+
+    <!-- Special Offers Products Carousel-->
+
+  <section id="specialdiscount" class="container padding-top-3x padding-bottom-3x">
+    <h3 class="text-center mb-30">Special Offers</h3>
+    <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+      <!-- Product-->
+      
+
+      {% if prodoffers %}
+        {% for prod in prodoffers %}
+          <div class="grid-item">
+            <div class="product-card">
+              <div class="product-badge text-danger">{{ prod.discount_prcnt|floatformat:0 }}% Off</div>
+              
+              <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.product.imageURL }}" alt="Product"></a>
+              <h3 class="product-title"><a style="color:forestgreen;" href="{% url 'shop' %}"><strong>{{ prod.product.name }}</strong></a></h3>
+              <h6 class="product-title" style="font-size: small">{{ prod.product.unit }}</h6>
+              <h4 class="product-price">                
+                  <del>Tk. {{ prod.product.price }}</del> Tk. {{ prod.product.get_discounted_price|floatformat:2 }}
+              </h4>
+              <h6 class="product-title" style="font-size: small; text-shadow: 0 0 3px #FF0000;" >{{ prod.get_time_limit }}</h6>
+              <div class="product-buttons">
+                <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                <button data-product={{prod.product.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}  
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- New Arrivals Carousel-->
+
+  <section id="newarrivals" class="container padding-top-3x padding-bottom-3x">
+    <h3 class="text-center mb-30">New Arrivals</h3>
+    <!-- <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }"> -->
+      <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+      <!-- Product-->
+      {% if newProds %}
+        {% for prod in newProds %}
+          <div class="grid-item">
+            <div class="product-card">
+              {% for disc in prod.productoffers_set.all %}
+                {% if disc and disc.get_discount != disc.product.price %}
+                  <div class="product-badge text-danger">{{ disc.discount_prcnt|floatformat:0 }}% Off</div>
+                {% else %}
+                  <div class="product-badge text-danger"></div>
+                {% endif %}
+              {% endfor %}
+              <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.imageURL }}" alt="Product"></a>
+              <h3 class="product-title"><a style="color:forestgreen;" href="{% url 'shop' %}"><strong>{{ prod.name }}</strong></a></h3>
+              <h6 class="product-title" style="font-size: small">{{ prod.unit }}</h6>
+              <h4 class="product-price">                
+                {% if prod.get_discounted_price == 0 %}
+                  Tk. {{ prod.price }}
+                {% elif prod.price == prod.get_discounted_price %}
+                  Tk. {{ prod.price }}
+                {% else %}
+                  <del>Tk. {{ prod.price }}</del> Tk. {{ prod.get_discounted_price|floatformat:2 }}
+                {% endif %}                
+              </h4>
+              <div class="product-buttons">
+                <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}  
+      {% endif %}
+    </div>
+  </section>
+
+
+    <!-- Best Sellers Carousel-->
+
+    <section id="bestsellers" class="container padding-top-3x padding-bottom-3x">
+      <h3 class="text-center mb-30">Best Sellers</h3>
+      <!-- <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }"> -->
+        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+        <!-- Product-->
+        {% if topProds %}
+          {% for prod in topProds %}
+            <div class="grid-item">
+              <div class="product-card">
+                {% for disc in prod.productoffers_set.all %}
+                  {% if disc and disc.get_discount != disc.product.price %}
+                    <div class="product-badge text-danger">{{ disc.discount_prcnt|floatformat:0 }}% Off</div>
+                  {% else %}
+                    <div class="product-badge text-danger"></div>
+                  {% endif %}
+                {% endfor %}
+                <a class="product-thumb" href="{% url 'shop' %}"><img src="{{ prod.imageURL }}" alt="Product"></a>
+                <h3 class="product-title"><a style="color:forestgreen;" href="{% url 'shop' %}"><strong>{{ prod.name }}</strong></a></h3>
+                <h6 class="product-title" style="font-size: small">{{ prod.unit }}</h6>
+                <h4 class="product-price">                
+                  {% if prod.get_discounted_price == 0 %}
+                    Tk. {{ prod.price }}
+                  {% elif prod.price == prod.get_discounted_price %}
+                    Tk. {{ prod.price }}
+                  {% else %}
+                    <del>Tk. {{ prod.price }}</del> Tk. {{ prod.get_discounted_price|floatformat:2 }}
+                  {% endif %}                
+                </h4>
+                <div class="product-buttons">
+                  <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                  <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}  
+        {% endif %}
+      </div>
+    </section>
+
+    
+     
+  <section class="container padding-top-3x padding-bottom-2x" >
+    <div class="row">
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/05.png' %}" alt="Shipping">
+        <h6 class="mb-2">Fast Delivery</h6>
+        <p class="text-sm text-muted mb-0">Fast delivery inside Dhaka city</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/02.png' %}" alt="Money Back">
+        <h6 class="mb-2">Money Back Guarantee</h6>
+        <p class="text-sm text-muted mb-0">We return money within 7 days</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/03.png' %}" alt="Support">
+        <h6 class="mb-2">24/7 Customer Support</h6>
+        <p class="text-sm text-muted mb-0">Friendly 24/7 customer support</p>
+      </div>
+      <div class="col-md-3 col-sm-6 text-center mb-30"><img style="width: 90px;" class="img-thumbnail mx-auto mb-4" src="{% static 'img/services/04.png' %}" alt="Payment">
+        <h6 class="mb-2">Secure Online Payment</h6>
+        <p class="text-sm text-muted mb-0">We posess SSL / Secure Certificate</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <!-- About Us-->
+          <section class="widget widget-links widget-light-skin">
+            <h3 class="widget-title">About Us</h3>
+            <ul>
+              <!--
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">About Eyecon</a></li>
+              <li><a href="#">Our Story</a></li>
+              <li><a href="#">Services</a></li>
+              -->
+              <p class="text-justify text-white">SafeFood is one of the leading online based home delivery service where our focus is to save you time so that you can use that time for your work. Customer satisfaction, honesty is our main goal.</p>
+            </ul>
+            <a class="social-button shape-circle sb-facebook sb-light-skin" href="#"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter sb-light-skin" href="#"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-instagram sb-light-skin" href="#"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus sb-light-skin" href="#"><i class="socicon-googleplus"></i></a>
+          </section>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <!-- Contact Info-->
+          <section class="widget widget-light-skin">
+            <h3 class="widget-title">Contact Us</h3>
+            
+            <ul class="list-unstyled text-sm text-white">
+              <li>
+                <span class="text-white">91, Kazi Nazrul Islam Avenue (3rd Floor)</span>
+                <br>
+                <span class="text-white">Tejgaon, Dhaka-1215, Bangladesh</span>  
+                <br>
+                <br>
+                <span class="text-white"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; info@safefoodsbd.com </span>
+                <br>
+                <span class="text-white"><i class="fa fa-phone" ></i>&nbsp; +880 2 55012450 </span>   
+                <br>           
+                <span class="text-white">&nbsp; &nbsp; +880 1844 609 953 </span>
+                <br>
+                <span class="text-white">&nbsp; &nbsp; +880 1844 609 954 </span>
+              </li>
+            </ul>
+            
+            
+          </section>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <!-- Mobile App Buttons-->
+          <section class="widget widget-light-skin">
+            <h3 class="widget-title">Our Mobile App</h3><a class="market-button apple-button mb-light-skin" href="#"><span class="mb-subtitle">Download on the</span><span class="mb-title">App Store</span></a><a class="market-button google-button mb-light-skin" href="#"><span class="mb-subtitle">Download on the</span><span class="mb-title">Google Play</span></a>
+          </section>
+          <div class="list-unstyled text-medium ">
+            <li><a class="text-decoration-none" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
+            <li><a class="text-decoration-none" href="{% url 'refundpolicy' %}">Return & Refund Policy</a></li>
+            <li><a class="text-decoration-none" href="{% url 'termsandconditions' %}">Terms & Conditions</a></li>
+          </div>
+        </div>
+
+        
+      <!--
+      <hr class="hr-light mt-2 margin-bottom-2x">
+		  <div class="row">
+            <div class="col-md-12 padding-bottom-1x">
+              
+              <div class="margin-bottom-1x"><img src="{% static 'img/payment-method.png' %}" alt="Payment Methods">
+              </div>
+            </div>
+          </div>
+      -->
+      <!-- Copyright-->
+        <!--
+        <hr class="hr-light mt-2 margin-bottom-2x">
+        <p class="footer-copyright">Copyright &copy; {% now 'Y' %} <strong>SafeFood</strong>. Made with &nbsp;<i class="icon-heart text-danger"></i><a href="https://gnetltd.com/"> &nbsp;by Generation Net Ltd.</a></p>
+        -->
+      </div>
+    </div>
+</footer>
+
+
+{% endblock %}

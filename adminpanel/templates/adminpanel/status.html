@@ -1,0 +1,238 @@
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<div class="row">
+	<div class="col-md-5">
+		<div style="text-align: center;">
+			<h4>Order Status for {% now "Y" %}</h4>
+		</div>
+	</div>
+	<div class="col-md-7">
+		<div style="text-align: center;">
+			<h4>Monthly Sales for {% now "Y" %}</h4>
+		</div>
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-md-5">
+		<!-- <div class="card card-body" id="myChart"></div> -->
+		<div class="card card-body">
+			
+			<canvas id="pie-chart" style="height: 250px;"></canvas>
+		</div>
+	</div>
+	<div class="col-md-7">
+		<div class="card card-body" id="myRevenueChart"></div>
+	</div>	
+</div>
+
+
+
+
+<script>
+
+	var state ={	
+		'items':[],
+		'values':[],
+	}
+
+	var dataURL = '/resultdata'
+	$.ajax({
+		method:'GET',
+		url:dataURL,
+		success:function(response){
+			console.log('RESPONSE:', response)
+			for (var i in response){
+
+				var key = Object.keys(response[i])[0]
+				var value = Object.values(response[i])[0]
+
+				state.items.push(key)
+				state.values.push(value)
+			}
+
+			console.log('STATE:', state)
+			buildChart()
+
+		}
+	})
+
+	function buildChart(){
+			var chartData = {
+			"type":"bar",
+			"title": {
+    			"text": "Order Status"
+  			},
+			"scale-x":{
+				"values":state.items
+			},
+			"series":[
+				{
+					"values":state.values
+				}
+			]
+		}
+
+
+		zingchart.render({
+		  id: "myChart",
+		  data: chartData,
+		  height: 250
+		});
+	}
+	
+
+
+	
+</script>
+
+<script>
+
+	var revstate ={	
+		'items':[],
+		'values':[],
+	}
+
+	var revdataURL = '/revenuedata'
+	$.ajax({
+		method:'GET',
+		url:revdataURL,
+		success:function(response){
+			console.log('RESPONSE:', response)
+			for (var j in response){
+
+				var key = Object.keys(response[j])[0]
+				var value = Object.values(response[j])[0]
+
+				revstate.items.push(key)
+				revstate.values.push(value)
+			}
+
+			console.log('REVSTATE:', revstate)
+			buildRevenueChart()
+		}
+	})
+
+	function buildRevenueChart(){
+			var revchartData = {
+			"type":"bar",
+			
+			"scale-x":{
+				"values":revstate.items
+			},
+			"series":[
+				{
+					"values":revstate.values
+				}
+			]
+		}
+
+
+		zingchart.render({
+		  id: "myRevenueChart",
+		  data: revchartData,
+		  height: "250px"
+		});
+	}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script><script>
+    var config = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#A3E4D7', '#FADBD8', '#85C1E9', '#73ffff', '#5c26ff', '#002db3', '#ffff26', '#4cff4c', '#ff00ff'
+          ],
+          label: 'Population'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+ 
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+  </script>
+
+
+<!--
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="total-orders" >
+			  	<div class="card-header" style="background-color:dodgerblue">
+					<h5 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>Total Orders</strong> 
+					</h5>
+			  	</div>
+			  	<div class="card-body" style="background-color:lightskyblue">
+					<h3 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>{{ total_orders }}</strong> 
+					</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  	<div class="card-header" style="background-color: dodgerblue;">
+					<h5 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>Delivered</strong> 
+					</h5>
+			  	</div>
+			  	<div class="card-body" style="background-color: lightskyblue;">
+					<h3 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>{{ deliveredCount }}</strong>
+					</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  	<div class="card-header" style="background-color: dodgerblue;">
+					<h5 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>In-Process</strong> 
+					</h5>
+			  	</div>
+			  	<div class="card-body" style="background-color: lightskyblue;">
+					<h3 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>{{ inprocessCount }}</strong>
+					</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-pending">
+			  	<div class="card-header" style="background-color: dodgerblue;">
+					<h5 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>Pending</strong> 
+					</h5>
+			  	</div>
+			  	<div class="card-body" style="background-color: lightskyblue;">
+					<h3 class="card-title" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<strong>{{ pendingCount }}</strong> 
+					</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+-->
+

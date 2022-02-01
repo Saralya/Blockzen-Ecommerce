@@ -1,0 +1,116 @@
+{% extends 'store/base2.html' %}
+
+{% load static %}
+
+<!--###################################################################################################################-->
+<!-- CONTENT START -->
+<!--###################################################################################################################-->
+{% block content %}
+
+
+<!--#################################################################################-->
+
+<div class="page-title">
+  <div class="container">
+    <div class="column">
+      <h1>Shop Categories</h1>
+    </div>
+    <div class="column">
+      <ul class="breadcrumbs">
+        <li><a href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="separator">&nbsp;</li>
+        <li>Shop Categories</li>
+      </ul>
+    </div>
+  </div>
+</div>
+  
+
+<!-- Page Content-->
+<div class="container padding-bottom-2x mb-2">
+    <div class="row">
+        
+        <!-- Sidebar          -->
+        <div class="col-lg-3">
+          {% include 'store/childsidebar.html' %}
+        </div>
+        
+        <!-- Categories-->
+        <div class="col-lg-9">
+            <!-- Promo banner-->
+            <div class="shop-toolbar padding-bottom-1x mb-2">
+              <!--
+              <div class="column">
+                <div class="shop-sorting">
+                  <label for="sorting">Sort by:</label>
+                  <select class="form-control" id="sorting">
+                    <option>Popularity</option>
+                    <option>Low - High Price</option>
+                    <option>High - Low Price</option>
+                    <option>Avarage Rating</option>
+                    <option>A - Z Order</option>
+                    <option>Z - A Order</option>
+                  </select><span class="text-muted">Showing:&nbsp;</span><span>1 - 12 items</span>
+                </div>
+              </div>
+              -->
+              <div class="column">
+                <div class="shop-view">
+                  <a class="grid-view active" href="#"><span></span><span></span><span></span></a>
+                  <!-- <a class="list-view" href="shop-list-ls.html"><span></span><span></span><span></span></a> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="isotope-grid cols-3 mb-2">
+              <div class="gutter-sizer"></div>
+              <div class="grid-sizer"></div>
+              <!-- Product-->
+              {% if products %}
+                    {% for prod in products %}
+                      {% if prod.get_stock > 0 %}
+                          <div class="grid-item">
+                            <div class="product-card">
+                              <!--<div class="product-badge text-danger">50% Off</div> -->
+                              {% for disc in prod.productoffers_set.all %}
+                                {% if disc and disc.get_discount != disc.product.price %}
+                                  <div class="product-badge text-danger">{{ disc.discount_prcnt|floatformat:0 }}% Off</div>
+                                {% else %}
+                                  <div class="product-badge text-danger"></div>
+                                {% endif %}
+                              {% endfor %}
+                              <a class="product-thumb" href="{% url 'productdetails' prod.id %}"><img src="{{ prod.imageURL }}" alt="Product"></a>
+                              <h3 class="product-title"><a style="color: darkgreen;" href="{% url 'productdetails' prod.id %}"><strong>{{ prod.name }}</strong></a></h3>
+                              <h6 class="product-title" style="font-size: small">{{ prod.unit }}</h6>
+                              <h4 class="product-price">
+                                {% if prod.get_discounted_price == 0 %}
+                                  Tk. {{ prod.price }}
+                                {% elif prod.price == prod.get_discounted_price %}
+                                  Tk. {{ prod.price }}
+                                {% else %}
+                                  <del>Tk. {{ prod.price }}</del> Tk. {{ prod.get_discounted_price|floatformat:2 }}
+                                {% endif %}
+                              </h4>
+                              <div class="product-buttons">
+                                
+                                <button data-product={{prod.id}} data-action="add" class="btn btn-outline-primary btn-sm update-cart" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                    {% endfor %}
+              {% endif %}
+              
+            </div>
+           
+        </div>
+
+    </div>
+  </div>
+
+<br>
+<br>
+<br>
+
+{% endblock %}

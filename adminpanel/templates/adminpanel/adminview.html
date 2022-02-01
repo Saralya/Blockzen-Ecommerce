@@ -1,0 +1,236 @@
+{% extends 'adminpanel/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Admin Panel</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{ headertext }}</li>
+            </ol>
+          </nav>
+                
+                <div class="card card-body" style="height:400px; overflow:auto;">
+                    {% if headertext == 'Region' %}
+                        <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createregion' %}">Create New Region</a>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Region Code</th>
+                                <th>Region Name</th>
+                                <th>Country</th>
+                                <th></th>
+                            </tr>
+                            
+                            {% if regions %}
+                                {% for i in regions %}
+                                    <tr>
+                                        <td style="vertical-align: middle;">{{ i.regioncode }}</td>
+                                        <td style="vertical-align: middle;">{{ i.regionname }}</td>
+                                        <td style="vertical-align: middle;">{{ i.countrycode }}</td>
+                                        <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updateregion' i.id  %}">Update</a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                                            
+                        </table>
+
+                    {% elif headertext == 'Area' %}
+                    <a class="btn btn-info  btn-sm btn-block" href="{% url 'createarea' %}">Create New Area</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Area Name</th>
+                            <th>Region Name</th>
+                            <th></th>
+                        </tr>
+                        {% if areas %}
+                            {% for area in areas %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ area.areaname }}</td>
+                                    <td style="vertical-align: middle;">{{ area.regioncode }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-info" href="{% url 'updatearea' area.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </table>
+
+                    {%  elif headertext == 'Category' %}
+
+                    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createcategory' %}">Create New Category</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                        {% if categories %}
+                            {% for cat in categories %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ cat.categoryname }}</td>
+                                    <td style="vertical-align: middle;">{{ cat.categorydesc }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updatecategory' cat.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </table>
+
+                    {% elif headertext == 'Subcategory' %}
+
+                    <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createsubcategory' %}">Create New Subcategory</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Subcategory Name</th>
+                            <th>Parent Subcategory</th>
+                            <th>Category</th>
+                            <th>Update</th>
+                        </tr>
+                        {% if subcategories %}
+                            {% for subcat in subcategories %}
+                                <tr>
+                                    <td style="vertical-align: middle;">{{ subcat.subcategoryname }}</td>
+                                    <td style="vertical-align: middle;">{{ subcat.parentsubcategory }}</td>
+                                    <td style="vertical-align: middle;">{{ subcat.categoryname }}</td>
+                                    <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updatesubcategory' subcat.id %}">Update</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}                        
+                    </table>
+
+                    {% elif headertext == 'Supplier' %}
+
+                        <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createsupplier' %}">Create New Supplier</a>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Supplier Name</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                            {% if suppliers %}
+                                {% for supplier in suppliers %}
+                                    <tr>
+                                        <td style="vertical-align: middle;">{{ supplier.suppliername }}</td>
+                                        <td style="vertical-align: middle;">{{ supplier.suppliercountry }}</td>
+                                        <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updatesupplier' supplier.id %}">Update</a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+
+                    {% elif headertext == 'Product' %}
+                        <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createproduct' %}">Create New Products</a>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Product Category</th>
+                                <th>Supplier</th>
+                                <th>Update</th>
+                            </tr>
+                            {% if products %}
+                                {% for product in products %}
+                                    <tr>
+                                        <td style="vertical-align: middle;">{{ product.name }}</td>
+                                        <td style="vertical-align: middle;">{{ product.subcategory }}</td>
+                                        <td style="vertical-align: middle;">{{ product.price }}</td>
+                                        <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updateproduct' product.id %}">Update</a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}                        
+                        </table>
+
+                        {% elif headertext == 'Customer' %}
+                            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createproduct' %}">Create New Products</a>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <!-- <th>Action</th> -->
+                                </tr>
+                                {% if customers %}
+                                    {% for cust in customers %}
+                                        <tr>
+                                            <td style="vertical-align: middle;">{{ cust.first_name }}</td>
+                                            <td style="vertical-align: middle;">{{ cust.last_name }}</td>
+                                            <td style="vertical-align: middle;">{{ cust.email }}</td>
+                                            <td style="vertical-align: middle;">{{ cust.phone }}</td>
+                                            <!-- <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="#">Update</a></td> -->
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}                        
+                            </table>
+
+                        {% elif headertext == 'Offers' %}
+                            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createproductoffers' %}">Create New Promotions</a>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Discount Percentage</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                {% if offers %}
+                                    {% for product in offers %}
+                                        <tr>
+                                            <td style="vertical-align: middle;">{{ product.product }}</td>
+                                            <td style="vertical-align: middle;">{{ product.discount_prcnt }}</td>
+                                            <td style="vertical-align: middle;">{{ product.start_date }}</td>
+                                            <td style="vertical-align: middle;">{{ product.end_date }}</td>
+                                            <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updateproductoffer' product.id %}">Update</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}                        
+                            </table>
+
+                        {% elif headertext == 'Delivery Man' %}
+                            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createdeliveryman' %}">Create New Delivery Man</a>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Contact Number</th>
+                                    <th>Action</th>
+                                </tr>
+                                {% if delvman %}
+                                    {% for man in delvman %}
+                                        <tr>
+                                            <td style="vertical-align: middle;">{{ man.name }}</td>
+                                            <td style="vertical-align: middle;">{{ man.contactnumber }}</td>
+                                            <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updatedeliveryman' man.id %}">Update</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}                        
+                            </table>
+
+                            {% elif headertext == 'Banner Image' %}
+                                <a class="btn btn-primary  btn-sm btn-block" href="{% url 'createbanner' %}">Create New Banner</a>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th></th>
+                                        <th>Banner Name</th>
+                                        <th>Banner Text</th>
+                                        <th>Active Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    {% if banner %}
+                                        {% for banners in banner %}
+                                            <tr>
+                                                <td style="vertical-align: middle;"><img class="row-image" style="height: 90px; width: 120px;" src="{{ banners.BannerimageURL }}"></td>
+                                                <td style="vertical-align: middle;">{{ banners.bannername }}</td>
+                                                <td style="vertical-align: middle;">{{ banners.bannertext }}</td>
+                                                <td style="vertical-align: middle;">{{ banners.isactive }}</td>
+                                                <td style="vertical-align: middle;"><a class="btn btn-sm btn-primary" href="{% url 'updatebanner' banners.id %}">Update</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}                        
+                                </table>
+
+
+                    {% endif %}
+                </div>
+
+    </div>
+
+{% endblock %}

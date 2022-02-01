@@ -1,0 +1,173 @@
+{% extends 'adminpanel/adminbase.html' %}
+{% block content %}
+
+
+<!--Page title-->
+<!--
+<div class="page-title">
+    <div class="container">
+      <div class="column">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="column">
+        <ul class="breadcrumbs">
+          <li><a href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="separator">&nbsp;</li>
+          <li><a href="{% url 'adminpanel' %}">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+-->
+
+<br>
+<div class="container">
+	{% include 'adminpanel/status.html' %}
+</div>
+
+
+
+
+
+<br>
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-12">
+			<h5 class="btn btn-outline-primary" style="border-radius: 50px;">
+				<strong>Ready For Delivery</strong> 
+			</h5>
+			
+			<div class="card card-body">
+				
+				<table class="table table-striped">
+					<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<th>Order No</th>
+						<th>Transaction No</th>
+						<th>Customer</th>
+						<th>Order Date</th>
+						<th>Total Quantity</th>
+						<th>Total Amount</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+					{% if readyforDelivery %}
+						{% for items in readyforDelivery %}
+							<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+								<td>{{ items.id }}</td>
+								<td>{{ items.transaction_id }}</td>
+								<td>{{ items.customer.get_customer_name }}</td>
+								<td>{{ items.date_ordered|date:"M d, Y" }}</td>
+								<td>{{ items.get_cart_items }}</td>
+								<td>{{ items.get_cart_total }}</td>
+								<td>{{ items.order_status }}</td>
+								<td>
+									<input type="button" class="btn btn-info" style="border-radius: 50px; font-size: small;" value="Update">
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<hr>
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-12">
+			<h5 class="btn btn-outline-primary" style="border-radius: 50px;">
+				<strong>Pending for Delivery</strong> 
+			</h5>
+			
+			<div class="card card-body">
+				
+				<table class="table table-striped">
+					<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<th scope="col">Order No</th>
+						<th scope="col">Customer Name</th>
+						<th scope="col">Order Date</th>
+						<th scope="col">Address</th>
+						<th scope="col">Area</th>
+						<th scope="col">City</th>
+						<th scope="col">Prefered Delivery</th>
+						<th scope="col">Action</th>
+					</tr>
+					{% if pendingOrders %}
+						{% for delv in pendingOrders %}
+							<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+								<td scope="row">{{ delv.id }}</td>
+								<td scope="row">{{ delv.customer.get_customer_name }}</td>
+								<td scope="row">{{ delv.date_ordered|date:"M d, Y" }}</td>
+								{% for delvd in delv.shippingaddress_set.all %}
+									<td scope="row">{{ delvd.address }}</td>
+									<td scope="row">{{ delvd.area }}</td>
+									<td scope="row">{{ delvd.city }}</td>
+									<td scope="row">{{ delvd.delivery_date|date:"M d, Y" }}</td>
+								{% endfor %}
+								<td scope="row">
+									<a type="button" class="btn btn-primary" style="border-radius: 50px; font-size: small;" value="Assign" href="{% url 'delivery' %}">
+										Assign
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<hr>
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-md-12">
+			<h5 class="btn btn-outline-primary" style="border-radius: 50px;">
+				<strong>Product Stock</strong> 
+			</h5>
+			
+			<div class="card card-body">
+				
+				<table class="table table-striped">
+					<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+						<th></th>
+						<th scope="col">Product name</th>
+						<th scope="col">Product Category</th>
+						<th scope="col">Current Stock</th>
+					</tr>
+					{% if productlist %}
+						{% for item in productlist %}
+							<tr style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: small;">
+								<td scope="row"><img class="row-image" style="height: 50px; width: 60px;" src="{{ item.imageURL }}"></td>
+								<td scope="row">{{ item.name }}</td>
+								<td scope="row">{{ item.subcategory.categoryname }}</td>
+								<td scope="row">{{ item.get_stock }} </td>
+							</tr>
+						{% endfor %}
+					{% endif %}
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

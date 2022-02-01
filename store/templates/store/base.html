@@ -1,0 +1,264 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons -->
+    <link href="{% static 'images/logo/logo.png' %}" rel="icon">
+    <link href="{% static 'images/logo/logo.png' %}" rel="Gnet_icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    
+    <!-- Awesome font icon -->
+    <link rel="stylesheet" type = "text/css" href= "{% static 'css/font-awesome.min.css' %}">
+    
+    
+    <!--Custom CSS-->
+    <!-- <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/remixicon.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/boxicons.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/venobox.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+
+    
+
+    <!-- Main Template Styles-->
+    <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/custom/styles.min.css' %}">
+
+    <!-- Animated Banner -->
+    <script src="{% static 'js/jssor.slider-28.0.0.min.js' %}"></script>
+
+
+    <!-- CUSTOM SCRIPT -->
+    <script type="text/javascript"> 
+      var user = '{{request.user}}'
+
+      function getToken(name) 
+      {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') 
+          {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) 
+              {
+                  var cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) 
+                  {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+
+      var csrftoken = getToken('csrftoken');
+
+      
+      function getCookie(name) 
+      {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) 
+        {
+          var cookiePair = cookieArr[i].split("=");
+
+          /* Removing whitespace at the beginning of the cookie name
+          and compare it with the given string */
+          if(name == cookiePair[0].trim()) 
+          {
+              // Decode the cookie value and return
+              return decodeURIComponent(cookiePair[1]);
+          }
+        }
+
+        // Return null if not found
+        return null;
+      }
+
+      var cart = JSON.parse(getCookie('cart'))
+
+      if (cart == undefined)
+      {
+        cart = {}
+        console.log('Cart Created!', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+      }
+
+
+      console.log('Cart:', cart)
+      
+
+  </script>
+
+<!-- Animated Banner Script and Style -->
+<script type="text/javascript">
+  window.jssor_1_slider_init = function() {
+
+      var jssor_1_SlideshowTransitions = [
+        {$Duration:500,$Delay:12,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:2049,$Easing:$Jease$.$OutQuad},
+        {$Duration:500,$Delay:40,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$SlideOut:true,$Easing:$Jease$.$OutQuad},
+        {$Duration:1000,x:-0.2,$Delay:20,$Cols:16,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Assembly:260,$Easing:{$Left:$Jease$.$InOutExpo,$Opacity:$Jease$.$InOutQuad},$Opacity:2,$Outside:true,$Round:{$Top:0.5}},
+        {$Duration:1600,y:-1,$Delay:40,$Cols:24,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Easing:$Jease$.$OutJump,$Round:{$Top:1.5}},
+        {$Duration:1200,x:0.2,y:-0.1,$Delay:16,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InWave,$Top:$Jease$.$InWave,$Clip:$Jease$.$OutQuad},$Round:{$Left:1.3,$Top:2.5}},
+        {$Duration:1500,x:0.3,y:-0.3,$Delay:20,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.2,0.8],$Top:[0.2,0.8]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InJump,$Top:$Jease$.$InJump,$Clip:$Jease$.$OutQuad},$Round:{$Left:0.8,$Top:2.5}},
+        {$Duration:1500,x:0.3,y:-0.3,$Delay:20,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.1,0.9],$Top:[0.1,0.9]},$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InJump,$Top:$Jease$.$InJump,$Clip:$Jease$.$OutQuad},$Round:{$Left:0.8,$Top:2.5}}
+      ];
+
+      var jssor_1_options = {
+        $AutoPlay: 1,
+        $SlideshowOptions: {
+          $Class: $JssorSlideshowRunner$,
+          $Transitions: jssor_1_SlideshowTransitions,
+          $TransitionsOrder: 1
+        },
+        $ArrowNavigatorOptions: {
+          $Class: $JssorArrowNavigator$
+        },
+        $BulletNavigatorOptions: {
+          $Class: $JssorBulletNavigator$,
+          $SpacingX: 16,
+          $SpacingY: 16
+        }
+      };
+
+      var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+      /*#region responsive code begin*/
+
+      var MAX_WIDTH = 1140;
+
+      function ScaleSlider() {
+          var containerElement = jssor_1_slider.$Elmt.parentNode;
+          var containerWidth = containerElement.clientWidth;
+
+          if (containerWidth) {
+
+              var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+              jssor_1_slider.$ScaleWidth(expectedWidth);
+          }
+          else {
+              window.setTimeout(ScaleSlider, 30);
+          }
+      }
+
+      ScaleSlider();
+
+      $Jssor$.$AddEvent(window, "load", ScaleSlider);
+      $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+      $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+      /*#endregion responsive code end*/
+  };
+</script>
+<style>
+  /*jssor slider loading skin spin css*/
+  .jssorl-009-spin img {
+      animation-name: jssorl-009-spin;
+      animation-duration: 1.6s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+  }
+
+  @keyframes jssorl-009-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+  }
+
+  /*jssor slider bullet skin 053 css*/
+  .jssorb053 .i {position:absolute;cursor:pointer;}
+  .jssorb053 .i .b {fill:#fff;fill-opacity:0.3;}
+  .jssorb053 .i:hover .b {fill-opacity:.7;}
+  .jssorb053 .iav .b {fill-opacity: 1;}
+  .jssorb053 .i.idn {opacity:.3;}
+
+  /*jssor slider arrow skin 093 css*/
+  .jssora093 {display:block;position:absolute;cursor:pointer;}
+  .jssora093 .c {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;}
+  .jssora093 .a {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;}
+  .jssora093:hover {opacity:.8;}
+  .jssora093.jssora093dn {opacity:.6;}
+  .jssora093.jssora093ds {opacity:.3;pointer-events:none;}
+</style>
+
+
+ 
+
+
+  <!-- End of Animated Banner Script and Style -->
+
+    <title>SafeFood</title>
+  </head>
+  <body>
+
+  <!-- ======= Header ======= -->
+  
+  {% include 'store/header.html' %}
+
+  <!-- ======= End Header ======== -->
+
+  {% block content %}
+
+  {% endblock %}
+
+<!-- ======= Footer ======= -->
+{% include 'store/footer.html' %}
+<!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  
+    <!-- Vendor JS Files -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/counterup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/venobox.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+   <!--Custom JS-->
+   <script type="text/javascript" src="{% static 'js/mycart.js' %}"></script>
+
+   
+
+
+   <!-- Animated Banner Script -->
+   <script type="text/javascript">
+      jssor_1_slider_init();
+   </script>
+
+   
+
+    
+
+</body>
+</html>

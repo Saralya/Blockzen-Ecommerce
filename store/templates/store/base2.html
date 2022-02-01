@@ -1,0 +1,502 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Safe Food
+    </title>
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="Blockzen">
+    <meta name="keywords" content="shop, e-commerce, modern, flat style, responsive, online store, business, mobile, blog, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+    <meta name="author" content="Blockzen">
+    <!-- Mobile Specific Meta Tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Favicon and Apple Icons-->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo/favicon.ico' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logo/favicon.png' %}touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/logo/touch-icon-ipad.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/logo/touch-icon-iphone-retina.png' %}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{% static 'images/logo/touch-icon-ipad-retina.png' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- Vendor Styles including: Bootstrap, Font Icons, Plugins, etc.-->
+    <link rel="stylesheet" media="screen" href="{% static 'css/custom/vendor.min.css' %}">
+    <!-- Main Template Styles-->
+    <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/custom/styles.min.css' %}">
+    <!-- Modernizr-->
+    <script src="{% static 'js/custom/modernizr.min.js' %}"></script>
+
+    <!-- Awesome font icon -->
+    <link rel="stylesheet" type = "text/css" href= "{% static 'fonts/font-awesome/css/fontawesome.min.css' %}">
+
+    <!-- Blockzen CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blockzen.css' %}"> 
+
+    <!-- Animated Banner -->
+    <script src="{% static 'js/jssor.slider-28.0.0.min.js' %}"></script>
+    
+
+    <!-- CUSTOM SCRIPT -->
+    <script type="text/javascript"> 
+      var user = '{{request.user}}'
+
+      function getToken(name) 
+      {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') 
+          {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) 
+              {
+                  var cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) 
+                  {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+
+      var csrftoken = getToken('csrftoken');
+
+      
+      function getCookie(name) 
+      {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) 
+        {
+          var cookiePair = cookieArr[i].split("=");
+
+          /* Removing whitespace at the beginning of the cookie name
+          and compare it with the given string */
+          if(name == cookiePair[0].trim()) 
+          {
+              // Decode the cookie value and return
+              return decodeURIComponent(cookiePair[1]);
+          }
+        }
+
+        // Return null if not found
+        return null;
+      }
+
+      var cart = JSON.parse(getCookie('cart'))
+
+      if (cart == undefined)
+      {
+        cart = {}
+        console.log('Cart Created!', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+      }
+
+
+      console.log('Cart:', cart)
+      
+
+  </script>
+
+
+<!-- Animated Banner Script and Style -->
+<script type="text/javascript">
+    window.jssor_1_slider_init = function() {
+  
+        var jssor_1_SlideshowTransitions = [
+          {$Duration:500,$Delay:12,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:2049,$Easing:$Jease$.$OutQuad},
+          {$Duration:500,$Delay:40,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$SlideOut:true,$Easing:$Jease$.$OutQuad},
+          {$Duration:1000,x:-0.2,$Delay:20,$Cols:16,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Assembly:260,$Easing:{$Left:$Jease$.$InOutExpo,$Opacity:$Jease$.$InOutQuad},$Opacity:2,$Outside:true,$Round:{$Top:0.5}},
+          {$Duration:1600,y:-1,$Delay:40,$Cols:24,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Easing:$Jease$.$OutJump,$Round:{$Top:1.5}},
+          {$Duration:1200,x:0.2,y:-0.1,$Delay:16,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InWave,$Top:$Jease$.$InWave,$Clip:$Jease$.$OutQuad},$Round:{$Left:1.3,$Top:2.5}},
+          {$Duration:1500,x:0.3,y:-0.3,$Delay:20,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.2,0.8],$Top:[0.2,0.8]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InJump,$Top:$Jease$.$InJump,$Clip:$Jease$.$OutQuad},$Round:{$Left:0.8,$Top:2.5}},
+          {$Duration:1500,x:0.3,y:-0.3,$Delay:20,$Cols:10,$Rows:5,$Opacity:2,$Clip:15,$During:{$Left:[0.1,0.9],$Top:[0.1,0.9]},$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InJump,$Top:$Jease$.$InJump,$Clip:$Jease$.$OutQuad},$Round:{$Left:0.8,$Top:2.5}}
+        ];
+  
+        var jssor_1_options = {
+          $AutoPlay: 1,
+          $SlideshowOptions: {
+            $Class: $JssorSlideshowRunner$,
+            $Transitions: jssor_1_SlideshowTransitions,
+            $TransitionsOrder: 1
+          },
+          $ArrowNavigatorOptions: {
+            $Class: $JssorArrowNavigator$
+          },
+          $BulletNavigatorOptions: {
+            $Class: $JssorBulletNavigator$,
+            $SpacingX: 16,
+            $SpacingY: 16
+          }
+        };
+  
+        var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+  
+        /*#region responsive code begin*/
+  
+        var MAX_WIDTH = 1140;
+  
+        function ScaleSlider() {
+            var containerElement = jssor_1_slider.$Elmt.parentNode;
+            var containerWidth = containerElement.clientWidth;
+  
+            if (containerWidth) {
+  
+                var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+  
+                jssor_1_slider.$ScaleWidth(expectedWidth);
+            }
+            else {
+                window.setTimeout(ScaleSlider, 30);
+            }
+        }
+  
+        ScaleSlider();
+  
+        $Jssor$.$AddEvent(window, "load", ScaleSlider);
+        $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+        $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        /*#endregion responsive code end*/
+    };
+  </script>
+  <style>
+    /*jssor slider loading skin spin css*/
+    .jssorl-009-spin img {
+        animation-name: jssorl-009-spin;
+        animation-duration: 1.6s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+  
+    @keyframes jssorl-009-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+  
+    /*jssor slider bullet skin 053 css*/
+    .jssorb053 .i {position:absolute;cursor:pointer;}
+    .jssorb053 .i .b {fill:#fff;fill-opacity:0.3;}
+    .jssorb053 .i:hover .b {fill-opacity:.7;}
+    .jssorb053 .iav .b {fill-opacity: 1;}
+    .jssorb053 .i.idn {opacity:.3;}
+  
+    /*jssor slider arrow skin 093 css*/
+    .jssora093 {display:block;position:absolute;cursor:pointer;}
+    .jssora093 .c {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;}
+    .jssora093 .a {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;}
+    .jssora093:hover {opacity:.8;}
+    .jssora093.jssora093dn {opacity:.6;}
+    .jssora093.jssora093ds {opacity:.3;pointer-events:none;}
+  </style> 
+
+</head>
+  <!-- Body-->
+  <body>
+    <!-- Off-Canvas Category Menu-->
+    <div class="offcanvas-container" id="shop-categories">
+      <div class="offcanvas-header">
+        <h3 class="offcanvas-title">Sister concern of Akon Group</h3>
+      </div>
+      <nav class="offcanvas-menu">
+        <ul class="menu">
+
+          <li class="has-children active">
+            <span><a href="{% url 'home' %}"><span>Home</span></a></span>            
+          </li>
+          <li class="has-children active">
+            <span><a href="{% url 'shop' %}"><span>All Categories</span></a></span>            
+          </li>
+          <li class="has-children active">
+            <span><a href="{% url 'home' %}#specialdiscount"><span>Special Offers</span></a></span>            
+          </li>
+          <li class="has-children active">
+            <span><a href="{% url 'home' %}#newarrivals"><span>New Arrivals</span></a></span>            
+          </li>
+          <li class="has-children active">
+            <span><a href="{% url 'home' %}#bestsellers"><span>Best Sellers</span></a></span>            
+          </li>
+          <!--
+          {% if categories %}
+            {% for clist in categories %}
+            <li class="has-children"><span><a href="{% url 'subcategories' clist.id %}">{{ clist.categoryname }}</a><span class="sub-menu-toggle"></span></span>
+              <ul class="offcanvas-submenu">
+                  {% for sclist in clist.subcategory_set.all %}
+                      {% if sclist.parentsubcategory == None %}
+                      <li> 
+                          <a href="{% url 'subcategoryviews' sclist.id sclist.subcategoryname %}">
+                              {{ sclist.subcategoryname }}
+                          </a>
+                          {% if sclist.parentsubcategory == sclist.id %}
+                              <span>{{sclist.count}}</span>
+                          {% endif %}
+                                                         
+                      </li>
+                      {% endif %}
+                  {% endfor %}
+              </ul>
+          </li>
+            {% endfor %}
+          {% endif %}
+          -->
+
+          <li class="has-children active">
+            <span><a href="#"><span>Contact Us</span></a></span>            
+          </li>
+          <li>
+            <a href='http://www.freevisitorcounters.com'>on freevisitorcounters.com</a> <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=8b31a00f51e950170d7151da9219beae92a3ed9a'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/770455/t/5"></script>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <!-- Off-Canvas Mobile Menu-->
+    <div class="offcanvas-container" id="mobile-menu">
+
+      {% if request.user.is_authenticated %}
+      <a class="account-link" href="#">
+        <div class="user-ava"><img src="{% static 'img/account/no_image_md.png' %} " alt="User">
+        </div>
+        <div class="user-info">
+          <h6 class="user-name">{{ request.user }}</h6>
+          <!-- <span class="text-sm text-white opacity-60">Logout</span> -->
+        </div>
+      </a>
+      {% else %}
+        <a class="account-link" href="{% url 'login' %}">
+          <div class="user-info"><span class="text-label">Sign In</span></div>
+        </a>
+      {% endif %}
+      
+      
+
+      <nav class="offcanvas-menu">
+        <ul class="menu">
+          
+          <li class="has-children active">
+            <span><a href="{% url 'home' %}"><span>Home</span></a></span>            
+          </li>
+
+          <li class="has-children active">
+            <span><a href="{% url 'shop' %}"><span>All Categories</span></a></span>            
+          </li>
+
+          {% if categories %}
+            {% for clist in categories %}
+            <li class="has-children"><span><a href="{% url 'subcategories' clist.id %}">{{ clist.categoryname }}</a><span class="sub-menu-toggle"></span></span>
+              <ul class="offcanvas-submenu">
+                  {% for sclist in clist.subcategory_set.all %}
+                      {% if sclist.parentsubcategory == None %}
+                      <li> 
+                          <a href="{% url 'subcategoryviews' sclist.id sclist.subcategoryname %}">
+                              {{ sclist.subcategoryname }}
+                          </a>
+                          {% if sclist.parentsubcategory == sclist.id %}
+                              <span>{{sclist.count}}</span>
+                          {% endif %}
+                                                         
+                      </li>
+                      {% endif %}
+                  {% endfor %}
+              </ul>
+          </li>
+            {% endfor %}
+          {% endif %}
+
+          <li class="has-children active">
+            <span><a href="#"><span>Contact Us</span></a></span>            
+          </li>
+          <li class="has-children active">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+              <div> <span class="text-label">Logout</span>
+              </div>
+            </a>
+            {% endif %}
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+    <!-- Topbar-->
+    <!-- Topbar-->
+    <div class="topbar">
+      <div class="topbar-column"><a class="hidden-md-down" href="mailto:info@safefoodsbd.com"><i class="icon-mail"></i>&nbsp; info@safefoodsbd.com</a><a class="hidden-md-down" href="cell:+880255012450"><i class="fa fa-phone"></i>&nbsp; +880 2 55012450, &nbsp; +880 1844 609 953, &nbsp; +880 1844 609 954</a>
+        <!-- <a class="social-button sb-facebook shape-none sb-dark" href="#" target="_blank"><i class="socicon-facebook"></i></a><a class="social-button sb-twitter shape-none sb-dark" href="#" target="_blank"><i class="socicon-twitter"></i></a><a class="social-button sb-instagram shape-none sb-dark" href="#" target="_blank"><i class="socicon-instagram"></i></a><a class="social-button sb-pinterest shape-none sb-dark" href="#" target="_blank"><i class="socicon-pinterest"></i></a> -->
+      </div>
+      <div class="topbar-column">
+        <!-- <a class="hidden-md-down" href="#"><i class="icon-download"></i>&nbsp; Get mobile app</a> -->
+        <div class="lang-currency-switcher-wrap">
+          <div class="lang-currency-switcher">
+            Language: <a href="{% url 'home' %}">Eng</a> | <a href="{% url 'homebangla' %}">বাংলা</a>
+          </div> 
+          
+        </div>
+      </div>
+    </div>
+    <!-- Deleted -->
+
+    <!-- Navbar-->
+    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+
+
+    <header class="navbar navbar-sticky">
+      <!-- Search-->
+
+      <form class="site-search" method="get">
+        <input type="text" name="site_search" placeholder="Type to search...">
+        <div class="search-tools"><span class="clear-search">Clear</span><span class="close-search"><i class="icon-cross"></i></span></div>
+      </form>
+      <div class="site-branding">
+        <div class="inner">
+          <!-- Off-Canvas Toggle (#shop-categories)--><a class="offcanvas-toggle cats-toggle" href="#shop-categories" data-toggle="offcanvas"></a>
+          <!-- Off-Canvas Toggle (#mobile-menu)--><a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
+          <!-- Site Logo--><a class="site-logo" href="{% url 'home' %}"><img style="height: 60px;" src="{% static 'images/logo/safefood.png' %}" alt="Blockzen"></a>
+        </div>
+      </div>
+      <!-- Main Navigation-->
+      <nav class="site-menu">
+        <ul>
+          <!-- Search box -->
+          <li class="has-megamenu active">
+            <form name="myform" class="input-group" method="GET" action="{% url 'searchresult' %}">
+              {% csrf_token %}
+              <span class="input-group-btn">
+                
+                  <button type="submit"><i class="icon-search"></i></button>
+                
+              </span>
+              <input name = "txtSearch" style="width: 400px;" class="form-control" type="search" placeholder="Search for products">
+            </form>
+          </li>
+
+          <li>
+            <a href="{% url 'home' %}"><span>Home</span></a>          
+          </li>        
+          <li>
+            <a href="{% url 'shop' %}"><span>All Categories</span></a>          
+          </li>
+          <li>
+            <a href="{% url 'home' %}#footers"><span>Contact Us</span></a>
+          </li>
+          
+          
+        </ul>
+      </nav>
+      <!-- Toolbar-->
+      <div class="toolbar">
+        <div class="inner">
+          <div class="tools">
+            <!-- <div class="search"><i class="icon-search"></i></div> -->
+            <div class="account"><a href="#"></a><i class="icon-head"></i>
+              <ul class="toolbar-dropdown">
+                {% if request.user.is_authenticated %}
+                <li class="sub-menu-user">
+                  <div class="user-ava"><img src="{% static 'img/account/no_image_sm.png' %} " alt="User's Image">
+                  </div>
+                  <div class="user-info">
+                    <h6 class="user-name">
+                      {{request.user}}
+                    </h6>
+                  </div>
+                </li>
+                
+              
+                <li><a href="{% url 'userprofile' %}">My Profile</a></li>
+                <li><a href="{% url 'userpanel' %}">Orders List</a></li>
+                <li><a href="{% url 'changepassword' %}">Change Password</a></li>
+                  <!-- <li><a href="#">Wishlist</a></li> -->
+                <li class="sub-menu-separator"></li>
+                <li>
+                  <a href="{% url 'logout' %}">
+                      <div> <i class="fa fa-sign-out"></i><span class="text-label">Logout</span>
+                      </div>
+                  </a>
+              </li>
+                
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}">
+                      <div><i class="fa fa-user"></i><span class="text-label">Sign In</span></div>
+                    </a>
+                </li>  
+                {% endif %}
+                
+              </ul>
+            </div>
+            <div class="cart"><a href="{% url 'cart' %}"></a><i class="icon-bag"></i><span class="count">{{ cartItems }}</span><span class="subtotal">Tk. {{ order.get_cart_total|floatformat:2 }}</span>
+              
+              <div class="toolbar-dropdown">
+                {% for item in items %}
+                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross update-cart" data-product={{item.product.id}} data-action="remove"></i></span><a class="dropdown-product-thumb" href="{% url 'shop' %}"><img src="{{ item.product.imageURL }}" alt="Product"></a>
+                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="{% url 'shop' %}">{{ item.product.name }}</a>
+                    <span class="dropdown-product-details">
+                      {% if item.product.price == item.product.get_discounted_price %}
+                        {{ item.quantity }} x Tk. {{ item.product.price|floatformat:2 }}
+                      {% elif item.product.get_discounted_price == 0 %} 
+                        {{ item.quantity }} x Tk. {{ item.product.price|floatformat:2 }}
+                      {% else %}
+                      {{ item.quantity }} x Tk. {{ item.product.get_discounted_price|floatformat:2 }}
+                      {% endif %}
+                    </span>
+                  </div>
+                </div>
+                {% endfor %}
+                <!--
+                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.html"><img src="{% static 'img/cart-dropdown/02.jpg' %}" alt="Product"></a>
+                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.html">Daily Fabric Cap</a><span class="dropdown-product-details">2 x $24.89</span></div>
+                </div>
+                <div class="dropdown-product-item"><span class="dropdown-product-remove"><i class="icon-cross"></i></span><a class="dropdown-product-thumb" href="shop-single.html"><img src="{% static 'img/cart-dropdown/03.jpg' %}" alt="Product"></a>
+                  <div class="dropdown-product-info"><a class="dropdown-product-title" href="shop-single.html">Haan Crossbody</a><span class="dropdown-product-details">1 x $200.00</span></div>
+                </div>
+                -->
+                <div class="toolbar-dropdown-group">
+                  <div class="column"><span class="text-lg">Total:</span></div>
+                  <div class="column text-right"><span class="text-lg text-medium">Tk. {{ order.get_cart_total|floatformat:2 }}&nbsp;</span></div>
+                </div>
+                <div class="toolbar-dropdown-group">
+                  <div class="column"><a class="btn btn-sm btn-block btn-secondary" href="{% url 'cart' %}">View Cart</a></div>
+                  <div class="column"><a class="btn btn-sm btn-block btn-success" href="{% url 'checkout' %}">Checkout</a></div>
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Off-Canvas Wrapper-->
+    <div class="offcanvas-wrapper">
+      <!-- Page Content-->
+      <!-- Main Slider-->
+      {% block content %}
+      {% endblock %}
+      <!-- Site Footer-->
+      <section id="footers">
+        {% include 'store/footer.html' %}
+      </section>
+    </div>
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
+    <!-- Backdrop-->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script src="{% static 'js/custom/vendor.min.js' %} "></script>
+    <script src="{% static 'js/custom/scripts.min.js' %}"></script>
+
+    <!--Custom JS-->
+   <script type="text/javascript" src="{% static 'js/mycart.js' %}"></script>
+
+   <!-- Animated Banner Script -->
+   <script type="text/javascript">
+    jssor_1_slider_init();
+ </script>
+
+
+
+  </body>
+</html>

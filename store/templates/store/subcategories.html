@@ -1,0 +1,118 @@
+{% extends 'store/base2.html' %}
+
+{% load static %}
+
+<!--###################################################################################################################-->
+<!-- CONTENT START -->
+<!--###################################################################################################################-->
+{% block content %}
+
+
+<!--#################################################################################-->
+
+<div class="page-title">
+    <div class="container">
+      <div class="column">
+        <h1>{{ category }}</h1>
+      </div>
+      <div class="column">
+        <ul class="breadcrumbs">
+          <li><a href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="separator">&nbsp;</li>
+          <li><a href="{% url 'shop' %}">Shop</a>
+          </li>
+          <li class="separator">&nbsp;</li>
+          <li>{{ category }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+<!-- Page Content-->
+<div class="container padding-bottom-2x mb-2">
+    <div class="row">
+        
+        <!-- Sidebar          -->
+        <div class="col-lg-3">
+            {% include 'store/childsidebar.html' %}
+        </div>
+        
+        <!-- Categories-->
+        <div class="col-lg-9">
+            <!-- Promo banner-->
+
+            <div class="shop-toolbar padding-bottom-1x mb-2">
+                <div class="column">
+                  <!--  
+                  <div class="shop-sorting">
+                    <label for="sorting">Sort by:</label>
+                    <select class="form-control" id="sorting">
+                      <option>Popularity</option>
+                      <option>Low - High Price</option>
+                      <option>High - Low Price</option>
+                      <option>Avarage Rating</option>
+                      <option>A - Z Order</option>
+                      <option>Z - A Order</option>
+                    </select><span class="text-muted">Showing:&nbsp;</span><span>1 - 12 items</span>
+                  </div>
+                  -->
+                    <span>
+                        <a href="{% url 'shop' %}">&#x2190; Back to Shop</a>
+                    </span>  
+                </div>
+                <div class="column">
+                    <div class="shop-view">
+                      <a class="grid-view active" href="shop-grid-ls.html"><span></span><span></span><span></span></a>
+                      <!--
+                      <a class="list-view" href="shop-list-ls.html"><span></span><span></span><span></span></a>
+                      -->
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="isotope-grid cols-3 mb-2">
+                <div class="gutter-sizer"></div>
+                <div class="grid-sizer"></div>
+                <!-- Product-->
+                {% if subcategories %}
+                    {% for items in subcategories %}
+                        <div class="grid-item">
+                            <div class="product-card">
+                                <!--
+                                <div class="product-badge text-danger">50% Off</div>
+                                -->
+                                <a class="product-thumb" href="{% url 'productsview' items.id items.subcategoryname %}">
+                                    <img src="{{ items.SubCategoryImageURL }}" alt="Product">
+                                </a>
+                                {% if items.haveproducts == True %}                                    
+                                    <h3 class="product-title"><a href="{% url 'productsview' items.id items.subcategoryname %}">{{ items.subcategoryname }}</a></h3>
+                                {% else %}
+                                <h3 class="product-title"><a href="{% url 'subcategoryviews' items.id items.subcategoryname %}">{{ items.subcategoryname }}</a></h3>
+                                {% endif %}
+                                
+                                
+                            </div>
+                        </div> 
+                    {% endfor %}     
+                {% endif %}  
+            </div>
+
+            
+            
+        </div>
+
+    </div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+
+<div class="modal-body">
+    <!-- Widget Categories-->
+    <section class="widget widget-categories">
+      <h3 class="widget-title">Shop Main Categories</h3>
+      <ul>
+          {% if categories %}
+            {% for clist in categories %}
+                <li class="has-children expanded"><a href="{% url 'subcategories' clist.id %}">{{ clist.categoryname }}</a>
+                    <ul>
+                        {% for sclist in clist.subcategory_set.all %}
+                            {% if sclist.parentsubcategory == None and sclist.haveproducts == False %}
+                            <li> 
+                                <a href="{% url 'subcategoryviews' sclist.id sclist.subcategoryname %}">
+                                <!-- <a href="{% url 'subcategories' sclist.id %}">  -->
+                                    {{ sclist.subcategoryname }}
+                                </a>
+                                {% if sclist.parentsubcategory == sclist.id %}
+                                    <span>{{sclist.count}}</span>
+                                {% endif %}
+                                                               
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+                
+
+            {% endfor %}
+          {% endif %}
+      </ul>
+      
+    </section>
+    
+</div>

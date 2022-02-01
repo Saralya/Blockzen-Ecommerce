@@ -1,0 +1,61 @@
+{% extends 'adminpanel/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+<!--Page title-->
+<!--
+<div class="page-title">
+    <div class="container">
+      <div class="column">
+        <h1>Create/Update {{ pagetitle }}</h1>
+      </div>
+      <div class="column">
+        <ul class="breadcrumbs">
+          <li><a href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="separator">&nbsp;</li>
+          <li><a href="{% url 'adminpanel' %}">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Page Content -->
+    <br>
+    <section id="packages" class="features">
+        <div class="container">
+            
+            
+            <div class="row">
+                <!-- <div class="col-md-3" style="background-image: url('{% static 'images/packagebg1.jpg' %}') "></div> -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <form class="card-body" method="POST" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                {{ form.as_p }}
+
+                                <!--{% if pagetitle == 'Product' %}
+                                    <input type="date" name="purchasedate" class="form-control">
+                                {% endif %} -->
+                            </div>
+                                                    
+                            <div class="form-group">
+                                <input class="btn btn-primary margin-right-none" type="submit" value="Save" data-toast
+                                data-toast-position="topRight" data-toast-type="success" data-toast-icon="icon-check-circle"
+                                data-toast-title="Success!" data-toast-message="Information added successfuly.">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+        </div>
+    </section>
+
+{% endblock %}

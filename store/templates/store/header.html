@@ -1,0 +1,67 @@
+{% load static %}
+
+<header id="header" class="fixed-top d-flex align-items-center">
+    
+    <div class="container d-flex align-items-center">
+        <!--
+        <div class="logo mr-auto">
+            <h1 class="text-light">
+                <a href="{% url 'home' %}">
+                    <span>
+                        <img src="{% static 'images/logo/logo_with_name.jpeg' %}">
+                    </span>
+                </a>
+                
+            </h1>
+        </div>
+        -->
+        <div class="mr-auto">
+            
+                <a href="{% url 'home' %}">
+                    <span>
+                        <img src="{% static 'images/logo/logo_with_name.png' %}">
+                    </span>
+                </a>
+                
+            
+        </div>
+
+        
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                <li class="active"><a href="{% url 'home' %}#popularproducts">Current Offers</a></li>
+                <li class="active"><a href="{% url 'home' %}#contact">Contact Us</a></li>  
+                {% if request.user.is_authenticated %}
+                <li class="active">
+                    <a href="{% url 'userprofile' %}">
+                        <div><i class="fa fa-user"></i><span class="text-label">{{request.user}}</span></div>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'logout' %}">
+                        <div> <i class="fa fa-sign-out"></i><span class="text-label">Logout</span>
+                        </div>
+                    </a>
+                </li>
+                {% else %}
+                <li class="active">
+                    <a href="{% url 'login' %}">
+                        <div><i class="fa fa-user"></i><span class="text-label">Sign In</span></div>
+                      </a>
+                </li>  
+                {% endif %}
+                <li class="active">
+                    <a href="{% url 'cart' %}">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="badge badge-info" style="width: 15px; height: 20px; border-radius: 50%; vertical-align: middle;">{{ cartItems }}</span>
+                    </a></li>
+                        
+            </ul>
+        </nav>
+      <!-- .nav-menu -->
+
+    </div>
+
+</header><!-- End Header -->
